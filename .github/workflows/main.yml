@@ -1,0 +1,38 @@
+
+name: CI/CD + Model Deployment
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run Tests (Optional)
+      run: |
+        echo "No tests implemented yet"
+
+    - name: Run Training (Optional)
+      run: |
+        python train_model.py || echo "Train script not available"
+
+    - name: Run Deployment (Optional)
+      run: |
+        python deploy_model.py || echo "Deploy script not available"
+
+    - name: Update Performance Logs
+      run: |
+        echo "Model Updated at: $(date)" >> results/performance_log.txt
